@@ -24,7 +24,7 @@
             "multiSelect": true,
             "quote": "'",
             "delimiter": ",",
-            "query": "Resources\r\n| where type =~ \"microsoft.cognitiveservices/accounts\"\r\n| where kind =~ \"OpenAI\"\r\n| summarize Count = count() by subscriptionId\r\n| order by Count desc\r\n| extend Rank = row_number()\r\n| project value = subscriptionId, label = subscriptionId, selected = Rank == 1",
+            "query": "Resources\r\n| where type =~ \"microsoft.cognitiveservices/accounts\"\r\n| where kind =~ \"AIServices\"\r\n| summarize Count = count() by subscriptionId\r\n| order by Count desc\r\n| extend Rank = row_number()\r\n| project value = subscriptionId, label = subscriptionId, selected = Rank == 1",
             "crossComponentResources": [
               "value::selected"
             ],
@@ -47,7 +47,7 @@
             "multiSelect": true,
             "quote": "'",
             "delimiter": ",",
-            "query": "Resources\r\n| where type =~ \"microsoft.cognitiveservices/accounts\"\r\n| where kind =~ \"OpenAI\"\r\n| order by name asc\r\n| extend Rank = row_number()\r\n| project value = id, label = id, selected = Rank <= 5",
+            "query": "Resources\r\n| where type =~ \"microsoft.cognitiveservices/accounts\"\r\n| where kind =~ \"AIServices\"\r\n| order by name asc\r\n| extend Rank = row_number()\r\n| project value = id, label = id, selected = Rank <= 5",
             "crossComponentResources": [
               "{Subscription}"
             ],
@@ -239,7 +239,7 @@
                   "type": 3,
                   "content": {
                     "version": "KqlItem/1.0",
-                    "query": "resources\r\n| where type =~ \"microsoft.cognitiveservices/accounts\"\r\n| where kind =~ \"OpenAI\"\r\n| where name in~ (split(\"{Resources:label}\", \", \"))\r\n| summarize count(type) by subscriptionId",
+                    "query": "resources\r\n| where type =~ \"microsoft.cognitiveservices/accounts\"\r\n| where kind =~ \"AIServices\"\r\n| where name in~ (split(\"{Resources:label}\", \", \"))\r\n| summarize count(type) by subscriptionId",
                     "size": 3,
                     "title": "Count by Subscription Id",
                     "queryType": 1,
@@ -256,7 +256,7 @@
                   "type": 3,
                   "content": {
                     "version": "KqlItem/1.0",
-                    "query": "resources\r\n| where type =~ \"microsoft.cognitiveservices/accounts\"\r\n| where kind =~ \"OpenAI\"\r\n| where name in~ (split(\"{Resources:label}\", \", \"))\r\n| summarize count(type) by resourceGroup",
+                    "query": "resources\r\n| where type =~ \"microsoft.cognitiveservices/accounts\"\r\n| where kind =~ \"AIServices\"\r\n| where name in~ (split(\"{Resources:label}\", \", \"))\r\n| summarize count(type) by resourceGroup",
                     "size": 3,
                     "title": "Count by Resource Group",
                     "queryType": 1,
@@ -312,7 +312,7 @@
                   "type": 3,
                   "content": {
                     "version": "KqlItem/1.0",
-                    "query": "resources\r\n| where type =~ \"microsoft.cognitiveservices/accounts\"\r\n| where kind =~ \"OpenAI\"\r\n| where name in~ (split(\"{Resources:label}\", \", \"))\r\n| summarize count(type) by location",
+                    "query": "resources\r\n| where type =~ \"microsoft.cognitiveservices/accounts\"\r\n| where kind =~ \"AIServices\"\r\n| where name in~ (split(\"{Resources:label}\", \", \"))\r\n| summarize count(type) by location",
                     "size": 3,
                     "title": "Count by Location",
                     "queryType": 1,
@@ -329,7 +329,7 @@
                   "type": 3,
                   "content": {
                     "version": "KqlItem/1.0",
-                    "query": "resources\r\n| where type == \"microsoft.cognitiveservices/accounts\"\r\n| where kind =~ \"OpenAI\"\r\n| where name in~ (split(\"{Resources:label}\", \", \"))\r\n| summarize count(type) by kind",
+                    "query": "resources\r\n| where type == \"microsoft.cognitiveservices/accounts\"\r\n| where kind =~ \"AIServices\"\r\n| where name in~ (split(\"{Resources:label}\", \", \"))\r\n| summarize count(type) by kind",
                     "size": 3,
                     "title": "Count by Kind",
                     "queryType": 1,
@@ -346,7 +346,7 @@
                   "type": 3,
                   "content": {
                     "version": "KqlItem/1.0",
-                    "query": "resources\r\n| where type == \"microsoft.cognitiveservices/accounts\"\r\n| where kind =~ \"OpenAI\"\r\n| where name in~ (split(\"{Resources:label}\", \", \"))\r\n| summarize count(type) by tostring(properties.publicNetworkAccess)",
+                    "query": "resources\r\n| where type == \"microsoft.cognitiveservices/accounts\"\r\n| where kind =~ \"AIServices\"\r\n| where name in~ (split(\"{Resources:label}\", \", \"))\r\n| summarize count(type) by tostring(properties.publicNetworkAccess)",
                     "size": 3,
                     "title": "Count by Public Network Access",
                     "queryType": 1,
@@ -384,7 +384,7 @@
                   "type": 3,
                   "content": {
                     "version": "KqlItem/1.0",
-                    "query": "resources\r\n| where type =~ \"microsoft.cognitiveservices/accounts\"\r\n| where kind =~ \"OpenAI\"\r\n| where name in~ (split(\"{Resources:label}\", \", \"))\r\n| extend privateEndpointConnections = properties.privateEndpointConnections\r\n| extend privateEndpointConnections = iff(privateEndpointConnections == '[]','Disabled','Enabled')\r\n| summarize count(type) by tostring(privateEndpointConnections)",
+                    "query": "resources\r\n| where type =~ \"microsoft.cognitiveservices/accounts\"\r\n| where kind =~ \"AIServices\"\r\n| where name in~ (split(\"{Resources:label}\", \", \"))\r\n| extend privateEndpointConnections = properties.privateEndpointConnections\r\n| extend privateEndpointConnections = iff(privateEndpointConnections == '[]','Disabled','Enabled')\r\n| summarize count(type) by tostring(privateEndpointConnections)",
                     "size": 3,
                     "title": "Count by Private Network Access",
                     "queryType": 1,
@@ -401,7 +401,7 @@
                   "type": 3,
                   "content": {
                     "version": "KqlItem/1.0",
-                    "query": "resources\r\n| where type =~ \"microsoft.cognitiveservices/accounts\"\r\n| where kind =~ \"OpenAI\"\r\n| where name in~ (split(\"{Resources:label}\", \", \"))\r\n| extend Details = pack_all()\r\n| project Resource=id, resourceGroup, location, subscriptionId, kind, SKU=sku.name, publicNetworkAccess=properties.publicNetworkAccess, privateEndpointConnections=properties.privateEndpointConnections, dateCreated=properties.dateCreated, tags, Details",
+                    "query": "resources\r\n| where type =~ \"microsoft.cognitiveservices/accounts\"\r\n| where kind =~ \"AIServices\"\r\n| where name in~ (split(\"{Resources:label}\", \", \"))\r\n| extend Details = pack_all()\r\n| project Resource=id, resourceGroup, location, subscriptionId, kind, SKU=sku.name, publicNetworkAccess=properties.publicNetworkAccess, privateEndpointConnections=properties.privateEndpointConnections, dateCreated=properties.dateCreated, tags, Details",
                     "size": 3,
                     "title": "Azure OpenAI",
                     "noDataMessage": "No Azure OpenAI resources found.",
